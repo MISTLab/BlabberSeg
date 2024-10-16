@@ -16,49 +16,46 @@ image segmentation.
 This was only tested on Jetson Orin AGX. Dependencies may vary and reinstalling versions (Python3, torch, torchvision, etc.) might be required.
 
 ## Docker Image for Jetson Orin AGX and DOVESEI
-docker run --runtime nvidia -it --rm --network=host --volume="$HOME/.Xauthority:/root/.Xauthority:rw" -e DISPLAY=$DISPLAY -v $(pwd):/home haechanmarkbong/blabberseg
+- docker run --runtime nvidia -it --rm --network=host --volume="$HOME/.Xauthority:/root/.Xauthority:rw" -e DISPLAY=$DISPLAY -v $(pwd):/home haechanmarkbong/blabberseg
 
 ### Generate CLIPSeg Modification Backbones
-mkdir CLIPActivations </br>
-cd int8_quant_dataset </br>
-mkdir segmentations </br>
-cd segmentations </br>
-mkdir {name of the optimized model (see scripts for the models)} </br>
-cd /home </br>
-python3 scripts/Generate\ CLIPSeg\ Mod\ Backbones.py
+- mkdir CLIPActivations </br>
+- cd fp16_quant_dataset </br>
+- mkdir segmentations </br>
+- cd segmentations </br>
+- mkdir {name of the optimized model (see scripts for the models)} </br>
+- python3 scripts/Generate\ CLIPSeg\ Mod\ Backbones.py
 
 ### Generate CLIP Activations & Conditonals
-python3 scripts/Generate\ Activations\ and\ Conditionals.py
+- python3 scripts/Generate\ Activations\ and\ Conditionals.py
 
 ### Generate ONNX Models
-mkdir onnx </br>
-cd int8_quant_dataset </br>
-mkdir activations </br>
-cd .. </br>
-python3 scripts/ONNX\ model\ generation.py
+- mkdir onnx </br>
+- cd int8_quant_dataset </br>
+- mkdir activations </br>
+- python3 scripts/ONNX\ model\ generation.py
 
 ### Simplify ONNX Models
-cd onnx <br>
-onnxsim CLIPActivations_fp16_352.onnx CLIPActivations_fp16_352_simpl.onnx </br>
-onnxsim CLIPSegDecoder_fp16_352.onnx CLIPSegDecoder_fp16_352_simpl.onnx
+- cd onnx <br>
+- onnxsim CLIPActivations_fp16_352.onnx CLIPActivations_fp16_352_simpl.onnx </br>
+- onnxsim CLIPSegDecoder_fp16_352.onnx CLIPSegDecoder_fp16_352_simpl.onnx
 
 ### TensorRT Engine
-trtexec --onnx=CLIPActivations_fp16_352_simpl.onnx --saveEngine=CLIPActivations.trt --workspace=128 --fp16 --verbose --best </br>
-trtexec --onnx=CLIPSegDecoder_fp16_352_simpl.onnx --saveEngine=CLIPSegDecoder.trt --workspace=128 --fp16 --verbose --best
+- trtexec --onnx=CLIPActivations_fp16_352_simpl.onnx --saveEngine=CLIPActivations.trt --workspace=128 --fp16 --verbose --best </br>
+- trtexec --onnx=CLIPSegDecoder_fp16_352_simpl.onnx --saveEngine=CLIPSegDecoder.trt --workspace=128 --fp16 --verbose --best
 
 ### Test without DOVESEI
-cd .. </br>
-python3 scripts/CLIPSeg_Mod_TensorRT_IOBinding_Dovesei.py
+- python3 scripts/CLIPSeg_Mod_TensorRT_IOBinding_Dovesei.py
 
 ### Testing using DOVESEI 
-git clone --recurse-submodules https://github.com/MISTLab/DOVESEI.git </br>
-colcon build --symlink-install --packages-select ros2_satellite_aerial_view_simulator ros2_open_voc_landing_heatmap ros2_open_voc_landing_heatmap_srv </br>
-source install/setup.bash </br>
+- git clone --recurse-submodules https://github.com/MISTLab/DOVESEI.git </br>
+- colcon build --symlink-install --packages-select ros2_satellite_aerial_view_simulator ros2_open_voc_landing_heatmap ros2_open_voc_landing_heatmap_srv </br>
+- source install/setup.bash </br>
 Change this file with the one in this repo.: </br> 
-src/ros2_open_voc_landing_heatmap/ros2_open_voc_landing_heatmap/generate_landing_heatmap.py </br>
-cd src/ros2_satellite_aerial_view_simulator </br>
-pip install --use-pep517 ros2_satellite_aerial_view_simulator </br>
-ros2 launch ros2_open_voc_landing_heatmap start_aerialview.launch.py
+- src/ros2_open_voc_landing_heatmap/ros2_open_voc_landing_heatmap/generate_landing_heatmap.py </br>
+- cd src/ros2_satellite_aerial_view_simulator </br>
+- pip install --use-pep517 ros2_satellite_aerial_view_simulator </br>
+- ros2 launch ros2_open_voc_landing_heatmap start_aerialview.launch.py
 
 ## The Reusing Architecture
 ### Reusing Features
