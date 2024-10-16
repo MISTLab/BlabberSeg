@@ -25,9 +25,7 @@ We used a generator to generate images (https://github.com/ricardodeazambuja/Aer
 - mkdir CLIPActivations </br>
 - mkdir fp16_quant_dataset/activations </br>
 - mkdir fp16_quant_dataset/input_images </br>
-- mkdir segmentations </br>
-- cd segmentations </br>
-- mkdir {name of the optimized model (see scripts for the models)} </br>
+- mkdir segmentations/{name of the optimized model (see scripts for the models)} </br>
 - python3 scripts/Generate\ CLIPSeg\ Mod\ Backbones.py
 
 ### Generate CLIP Activations & Conditonals
