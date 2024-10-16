@@ -18,9 +18,13 @@ This was only tested on Jetson Orin AGX. Dependencies may vary and reinstalling 
 ## Docker Image for Jetson Orin AGX and DOVESEI
 - docker run --runtime nvidia -it --rm --network=host --volume="$HOME/.Xauthority:/root/.Xauthority:rw" -e DISPLAY=$DISPLAY -v $(pwd):/home haechanmarkbong/blabberseg
 
+## Aerial Images
+We used a generator to generate images (https://github.com/ricardodeazambuja/AerialViewGenerator), but you can use any images.
+
 ### Generate CLIPSeg Modification Backbones
 - mkdir CLIPActivations </br>
-- cd fp16_quant_dataset </br>
+- mkdir fp16_quant_dataset/activations </br>
+- mkdir fp16_quant_dataset/input_images </br>
 - mkdir segmentations </br>
 - cd segmentations </br>
 - mkdir {name of the optimized model (see scripts for the models)} </br>
