@@ -80,4 +80,5 @@ Compared to the usage of original CLIPSeg, our model was able to increase the co
 
 
 ## Publication
-For more information about BlabberSeg, refer to our paper: .
+For more information about BlabberSeg, refer to our paper: https://lnkd.in/gcthVaqk
+
