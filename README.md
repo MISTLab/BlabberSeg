@@ -50,14 +50,14 @@ We used a generator to generate images (https://github.com/ricardodeazambuja/Aer
 - python3 scripts/CLIPSeg_Mod_TensorRT_IOBinding_Dovesei.py
 
 ### Testing using DOVESEI 
-- git clone --recurse-submodules https://github.com/MISTLab/DOVESEI.git </br>
-- colcon build --symlink-install --packages-select ros2_satellite_aerial_view_simulator ros2_open_voc_landing_heatmap ros2_open_voc_landing_heatmap_srv </br>
-- source install/setup.bash </br>
+git clone --recurse-submodules https://github.com/MISTLab/DOVESEI.git </br>
+sudo apt-get update  </br>
+sudo apt-get upgrade </br>
+colcon build --symlink-install --packages-select ros2_satellite_aerial_view_simulator ros2_open_voc_landing_heatmap ros2_open_voc_landing_heatmap_srv </br>
+source install/setup.bash </br>
 Change this file with the one in this repo.: </br> 
-- src/ros2_open_voc_landing_heatmap/ros2_open_voc_landing_heatmap/generate_landing_heatmap.py </br>
-- cd src/ros2_satellite_aerial_view_simulator </br>
-- pip install --use-pep517 ros2_satellite_aerial_view_simulator </br>
-- ros2 launch ros2_open_voc_landing_heatmap start_aerialview.launch.py
+src/ros2_open_voc_landing_heatmap/ros2_open_voc_landing_heatmap/generate_landing_heatmap.py </br>
+./experiements.bash </br>
 
 ## The Reusing Architecture
 ### Reusing Features
