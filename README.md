@@ -2,7 +2,7 @@
 
 ## About
 BlabberSeg is a novel reusing architecture that extends CLIPSeg (https://arxiv.org/abs/2112.10003) to unlock computational efficiency during exploration of safe landing zone segmentation.
-<img src = "assets/blabberseg.png" alt = "Figure 1: System Architecture" width = "100%">
+<img src = "assets/blabberseg.svg" alt = "Figure 1: System Architecture" width = "100%">
 
 ## Application
 Existing models require massive computation which is a limitation in real-time applications. For our model, the enhancement comes from reusing features to mitigate excessive computational 
